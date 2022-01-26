@@ -5,6 +5,7 @@ import Rating from '../components/Rating'
 import axios from 'axios'
 
 const ProductScreen = () => {
+    // const params = useParams()
     const { id } = useParams()
     const [product, setProduct] = useState({})
 
@@ -13,9 +14,8 @@ const ProductScreen = () => {
             const { data } = await axios.get(`/api/products/${id}`)
             setProduct(data)
         }
-
         fetchProduct()
-    }, [])
+    }, [id])
 
     return (
         <>
