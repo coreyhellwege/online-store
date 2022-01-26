@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/coreyhellwege/online-store#readme",
   "dependencies": {
+    "dotenv": "^14.3.2",
     "express": "^4.17.2"
   },
   "devDependencies": {
