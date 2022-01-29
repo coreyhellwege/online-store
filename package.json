@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/coreyhellwege/online-store#readme",
   "dependencies": {
+    "colors": "^1.4.0",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "mongoose": "^6.1.8"
