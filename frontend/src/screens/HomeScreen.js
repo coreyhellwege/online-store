@@ -7,10 +7,9 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 
 const HomeScreen = () => {
-    const dispatch = useDispatch()
-
-    const productList = useSelector(state => state.productList)
-    const { loading, error, products } = productList
+    const dispatch = useDispatch(),
+        productList = useSelector(state => state.productList),
+        { loading, error, products } = productList
 
     // useEffect runs as soon as the component loads.
     // Second arg is an array of dependencies which you want to trigger useEffect when they change.
