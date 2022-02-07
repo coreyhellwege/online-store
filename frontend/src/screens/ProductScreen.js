@@ -14,7 +14,7 @@ const ProductScreen = () => {
         navigate = useNavigate(),
         productDetails = useSelector(state => state.productDetails),
         { loading, error, product } = productDetails,
-        [qty, setQty] = useState(0)
+        [qty, setQty] = useState(1)
 
     useEffect(() => {
         dispatch(listProductDetails(id))
