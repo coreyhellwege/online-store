@@ -14,7 +14,7 @@ const LoginScreen = () => {
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
     useEffect(() => {
-        userInfo ?? navigate(redirect)
+        userInfo && navigate(redirect)
     }, [userInfo, navigate, redirect])
 
     const submitHandler = e => {
