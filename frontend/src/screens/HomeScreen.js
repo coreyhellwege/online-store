@@ -7,31 +7,30 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 
 const HomeScreen = () => {
-    const dispatch = useDispatch(),
-        productList = useSelector(state => state.productList),
-        { loading, error, products } = productList
+    const dispatch = useDispatch()
+    const productList = useSelector(state => state.productList), { loading, error, products } = productList
 
-    // useEffect runs as soon as the component loads.
-    // Second arg is an array of dependencies which you want to trigger useEffect when they change.
+    /*
+     * useEffect runs when the component loads. 
+     * Second arg is an array of dependencies which trigger useEffect when they change.
+     */
     useEffect(() => {
         dispatch(listProducts())
     }, [dispatch])
 
-    return (
-        <>
-            <h1>Latest Products</h1>
-            {
-                loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : 
-                <Row>
-                    {products.map((product) => (
-                        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+    return <>
+        <h1>Latest Products</h1>
+        {
+            loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : 
+            <Row>
+                {products.map((product) => (
+                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                         <Product product={product} />
-                        </Col>
-                    ))}
-                </Row>
-            }
-        </>
-    )
+                    </Col>
+                ))}
+            </Row>
+        }
+    </>
 }
 
 export default HomeScreen

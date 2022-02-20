@@ -9,7 +9,7 @@ import { login } from '../actions/userActions'
 
 const LoginScreen = () => {
     const location = useLocation(), dispatch = useDispatch(), navigate = useNavigate()
-    const [email, setEmail] = useState(''), [password, setPassword] = useState('') // component level state
+    const [email, setEmail] = useState(''), [password, setPassword] = useState('') // set component level state
     const userLogin = useSelector(state => state.userLogin), { loading, error, userInfo } = userLogin // get user login state and destructure attrs
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
