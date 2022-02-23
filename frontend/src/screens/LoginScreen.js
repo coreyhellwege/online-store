@@ -41,6 +41,6 @@ const LoginScreen = () => {
             <Col>New customer? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link></Col>
         </Row>
     </FormContainer>
-};
+}
 
 export default LoginScreen

@@ -7,26 +7,26 @@ import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
+import RegisterScreen from './screens/RegisterScreen'
 
 const App = () => {
-  // Must return one element
-  return (
-    <Router>
-      <Header />
-      <main className='py-3'>
-        <Container>
-          <Routes>
-            <Route path='/login' element={<LoginScreen />} />
-            <Route path='/product/:id' element={<ProductScreen />} />
-            <Route path='/cart/:id' element={<CartScreen />} />
-            <Route path="/cart/" element={<CartScreen />} />
-            <Route exact path='/' element={<HomeScreen />} />
-          </Routes>
-        </Container>
-      </main>
-      <Footer />
+    // Must return one element
+    return <Router>
+        <Header />
+            <main className='py-3'>
+                <Container>
+                    <Routes>
+                        <Route path='/login' element={<LoginScreen />} />
+                        <Route path='/register' element={<RegisterScreen />} />
+                        <Route path='/product/:id' element={<ProductScreen />} />
+                        <Route path='/cart/:id' element={<CartScreen />} />
+                        <Route path="/cart/" element={<CartScreen />} />
+                        <Route exact path='/' element={<HomeScreen />} />
+                    </Routes>
+                </Container>
+            </main>
+        <Footer />
     </Router>
-  )
 }
 
 export default App
