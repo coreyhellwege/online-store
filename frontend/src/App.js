@@ -9,6 +9,7 @@ import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import ShippingScreen from './screens/ShippingScreen'
 
 const App = () => {
     // Must return one element
@@ -23,6 +24,7 @@ const App = () => {
                         <Route path='/product/:id' element={<ProductScreen />} />
                         <Route path='/cart/:id' element={<CartScreen />} />
                         <Route path="/cart/" element={<CartScreen />} />
+                        <Route path="/shipping/" element={<ShippingScreen />} />
                         <Route exact path='/' element={<HomeScreen />} />
                     </Routes>
                 </Container>
