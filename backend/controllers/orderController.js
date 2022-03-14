@@ -17,9 +17,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     } else {
         // Add some validation to prevent the user from manipulating item prices from local storage
         orderItems.forEach(async (item) => {
-            console.log(item)
             let lookupItem = await Product.findById(item.product)
-            console.log(lookupItem)
             if (item.price !== lookupItem.price) {
                 res.status(400)
                 throw new Error('Item prices don\'t match, please try again')
