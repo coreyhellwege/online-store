@@ -5,6 +5,6 @@ import { protect } from '../middleware/authMiddleware.js'
 
 router.post('/', protect, addOrderItems)
 router.get('/:id', protect, getOrderById)
-router.put('/:id', protect, updateOrderToPaid)
+router.put('/:id/pay', protect, updateOrderToPaid)
 
 export default router
