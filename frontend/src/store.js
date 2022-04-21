@@ -8,7 +8,7 @@ import { cartReducer } from './reducers/cartReducers'
 import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer } from './reducers/userReducers'
 import { orderCreateReducer, orderDetailsReducer, orderPayReducer, listMyOrdersReducer } from './reducers/orderReducers'
 
-const reducer = combineReducers({
+const rootReducer = combineReducers({
     productList      : productListReducer,
     productDetails   : productDetailsReducer,
     cart             : cartReducer,
@@ -19,7 +19,7 @@ const reducer = combineReducers({
     orderCreate      : orderCreateReducer,
     orderDetails     : orderDetailsReducer,
     orderPay         : orderPayReducer,
-    listMyOrders     : listMyOrdersReducer  
+    myOrders         : listMyOrdersReducer  
 })
 
 const cartItemsFromStorage       = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
@@ -33,6 +33,6 @@ const initialState = {
 
 const middleware = [thunk]
 
-const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
+const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
 
 export default store
