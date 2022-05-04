@@ -13,7 +13,7 @@
     <img src="./images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Online Store</h3>
+<h1 align="center">Online Store</h1>
 
   <p align="center">
     An E-Commerce online store built with React JS, Redux JS, Node JS, Express JS, Mongo DB.
