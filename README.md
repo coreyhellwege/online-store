@@ -8,9 +8,10 @@
 
 <!-- PROJECT LOGO -->
 <br />
+
 <div align="center">
   <a href="https://github.com/coreyhellwege/online-store">
-    <img src="./images/logo.png" alt="Logo" width="80" height="80">
+    <img src="./images/online-store-icon.png" alt="Logo" width="90" height="90">
   </a>
 
 <h1 align="center">Online Store</h1>
@@ -25,8 +26,10 @@
   </p>
 </div>
 
+<br />
+
 <!-- TABLE OF CONTENTS -->
-<details>
+<details open>
   <summary>Table of Contents</summary>
   <ol>
     <li>
@@ -84,30 +87,46 @@ To run this project locally follow these steps.
 
 ### Setup
 
-1. Create a `.env` file in the project root directory and add default values for the following keys.
+1. Clone the repo
 
-```sh
-NODE_ENV = development
-PORT = 8000
-MONGO_URI = *insert mongo uri connection string*
-JWT_SECRET = *create a jwt secret string*
-```
-To set up the database you will need to create a MongoDB instance and obtain a connection URI. [Learn more here](https://www.mongodb.com/docs/manual/reference/connection-string/)
-
-2. Clone the repo
    ```sh
    git clone https://github.com/coreyhellwege/online-store.git
    ```
+
 3. Install server dependencies
+
    ```sh
    npm install
    ```
+
 4. Install client dependencies
+
    ```sh
    cd frontend
    npm install
    ```
-5. Start the development server
+
+2. Create a `.env` file in the project root directory 
+
+    ```sh
+    cd ..
+    touch .env
+    ```
+
+    Add default values for the following keys:
+
+    ```sh
+    NODE_ENV = development
+    PORT = 8000
+    MONGO_URI = *insert mongo uri connection string*
+    JWT_SECRET = *create a jwt secret string*
+    ```
+
+    To set up the database you will need to create a MongoDB instance and obtain a connection URI. [Learn more here](https://www.mongodb.com/docs/manual/reference/connection-string/)
+
+5. Start the local development server <br />
+   <i>This will run the client & server concurrently</i>
+
    ```sh
    npm run dev
    ```
@@ -162,5 +181,5 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [issues-url]: https://github.com/coreyhellwege/online-store/issues
 [license-shield]: https://img.shields.io/github/license/coreyhellwege/online-store.svg?style=for-the-badge
 [license-url]: /LICENSE.txt
-[product-screenshot-1]: ./images/OnlineStore2.png
-[product-screenshot-2]: ./images/OnlineStore.png
+[product-screenshot-1]: ./images/screenshot-1.png
+[product-screenshot-2]: ./images/screenshot-2.png
