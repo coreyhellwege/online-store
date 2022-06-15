@@ -52,7 +52,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
  * @route  PUT /api/users/profile
  * @access Private
  */
-const upateUserProfile = asyncHandler(async (req, res) => {
+const updateUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id) // get the logged-in user
 
     if (user) {
@@ -160,7 +160,7 @@ const deleteUser = asyncHandler(async (req, res) => {
  * @route  PUT /api/users/:id
  * @access Private/Admin
  */
-const upateUser = asyncHandler(async (req, res) => {
+const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id) // get the ID from the URL
 
     if (user) {
@@ -182,4 +182,4 @@ const upateUser = asyncHandler(async (req, res) => {
     }
 })
 
-export { authUser, getUserProfile, registerUser, upateUserProfile, upateUser, getUsers, getUserById, deleteUser }
+export { authUser, getUserProfile, registerUser, updateUserProfile, updateUser, getUsers, getUserById, deleteUser }
