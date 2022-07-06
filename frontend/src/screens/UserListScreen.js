@@ -53,11 +53,11 @@ const UserListScreen = () => {
                             </td>
                             <td>
                                 <LinkContainer to={`/admin/user/${user._id}/edit`}>
-                                    <Button variant='light' className='btn-sm'>
+                                    <Button variant='light' className='btn-sm' disabled={userInfo._id === user._id}>
                                         <i className='fas fa-edit' />
                                     </Button>
                                 </LinkContainer>
-                                <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user)}>
+                                <Button variant='danger' className='btn-sm' disabled={userInfo._id === user._id} onClick={() => deleteHandler(user)}>
                                     <i className='fas fa-trash' />
                                 </Button>
                             </td>
