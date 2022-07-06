@@ -1,38 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, updateUser } from '../actions/userActions'
+import { USER_UPDATE_RESET } from '../constants/userConstants'
 
 const UserEditScreen = () => {
-    const { id } = useParams(), dispatch = useDispatch()
+    const { id } = useParams(), dispatch = useDispatch(), navigate = useNavigate()
     const [name, setName] = useState(''), 
           [email, setEmail] = useState(''), 
           [isAdmin, setIsAdmin] = useState(false)
-    const userDetails = useSelector(state => state.userDetails), { loading, error, user } = userDetails
+    const userDetails = useSelector(state => state.userDetails), { loading, error, user } = userDetails,
+          userUpdate = useSelector(state => state.userUpdate), { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = userUpdate
 
     useEffect(() => {
-        if (!user.name || user._id !== id) {
-            dispatch(getUserDetails(id))
+        if (successUpdate) {
+            dispatch({ type: USER_UPDATE_RESET })
+            navigate('/admin/userlist')
         } else {
-            // Pre-populate state with current user data
-            setName(user.name)
-            setEmail(user.email)
-            setIsAdmin(user.isAdmin)
+            if (!user.name || user._id !== id) {
+                dispatch(getUserDetails(id))
+            } else {
+                // Pre-populate state with current user data
+                setName(user.name)
+                setEmail(user.email)
+                setIsAdmin(user.isAdmin)
+            }
         }
-    }, [dispatch, user, id])
+
+    }, [successUpdate, dispatch, navigate, user, id])
 
     const submitHandler = e => {
         e.preventDefault() // prevent page from reloading
+        dispatch(updateUser({ _id: id, name, email, isAdmin }))
     }
 
     return <>
         <Link to='/admin/userlist/' className='btn btn-light my-3'>Go Back</Link>
         <FormContainer>
             <h1>Edit User</h1>
+            {loadingUpdate && <Loader />}
+            {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                 <Form onSubmit={submitHandler}>
                     <Form.Group controlId='name'>
