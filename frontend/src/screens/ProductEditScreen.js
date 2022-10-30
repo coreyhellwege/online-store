@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { listProductDetails } from '../actions/productActions'
-import { USER_UPDATE_RESET } from '../constants/userConstants'
+import { listProductDetails, updateProduct } from '../actions/productActions'
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
 
 const ProductEditScreen = () => {
     const { id } = useParams(), dispatch = useDispatch(), navigate = useNavigate()
@@ -17,33 +17,42 @@ const ProductEditScreen = () => {
           [category, setCategory] = useState(''),
           [countInStock, setCountInStock] = useState(0),
           [description, setDescription] = useState('')
-    const productDetails = useSelector(state => state.productDetails), { loading, error, product } = productDetails
+    const productDetails = useSelector(state => state.productDetails), { loading, error, product } = productDetails,
+          productUpdate = useSelector(state => state.productUpdate), { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate
 
     useEffect(() => {
-        if (!product.name || product._id !== id) {
-            dispatch(listProductDetails(id))
+        if (successUpdate) {
+            // After a product has been updated, clear the state and redirect back to the product list
+            dispatch({ type: PRODUCT_UPDATE_RESET })
+            navigate('/admin/productlist')
         } else {
-            // Pre-populate state with current product data
-            setName(product.name)
-            setPrice(product.price)
-            setImage(product.image)
-            setBrand(product.brand)
-            setCategory(product.category)
-            setCountInStock(product.countInStock)
-            setDescription(product.description)
+            if (!product.name || product._id !== id) {
+                dispatch(listProductDetails(id))
+            } else {
+                // Pre-populate state with current product data
+                setName(product.name)
+                setPrice(product.price)
+                setImage(product.image)
+                setBrand(product.brand)
+                setCategory(product.category)
+                setCountInStock(product.countInStock)
+                setDescription(product.description)
+            }
         }
-
-    }, [dispatch, product, id])
+    }, [dispatch, navigate, product, id, successUpdate])
 
     const submitHandler = e => {
         e.preventDefault() // prevent page from reloading
-        // todo: update product
+        // Call the updateProduct action and pass it the form data from the component state
+        dispatch(updateProduct({ _id: id, name, price, image, brand, category, countInStock, description }))
     }
 
     return <>
         <Link to='/admin/productlist/' className='btn btn-light my-3'>Go Back</Link>
         <FormContainer>
             <h1>Edit Product</h1>
+            {loadingUpdate && <Loader />}
+            {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                 <Form onSubmit={submitHandler}>
                     <Form.Group controlId='name'>
