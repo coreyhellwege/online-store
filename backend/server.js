@@ -32,11 +32,10 @@ app.use('/api/upload', uploadRoutes)
 
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
 
-// The __dirname Nodejs environment variable is only compatible with commonJS, not ES modules, so just mimick it using the path module
-const __dirname = path.resolve()
+const folder = path.resolve()
 
 // Use Express to make the uploads folder static so it can be loaded in the browser
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+app.use('/uploads', express.static(path.join(folder, '/uploads')))
 
 app.use(notFound) // Handle missing route errors.
 app.use(errorHandler) // Override the default error handler.
