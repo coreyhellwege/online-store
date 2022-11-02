@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { listProductDetails, updateProduct } from '../actions/productActions'
-import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 
 const ProductEditScreen = () => {
     const { id } = useParams(), dispatch = useDispatch(), navigate = useNavigate()
@@ -16,9 +17,12 @@ const ProductEditScreen = () => {
           [brand, setBrand] = useState(''),
           [category, setCategory] = useState(''),
           [countInStock, setCountInStock] = useState(0),
-          [description, setDescription] = useState('')
+          [description, setDescription] = useState(''),
+          [uploading, setUploading] = useState(false)
     const productDetails = useSelector(state => state.productDetails), { loading, error, product } = productDetails,
-          productUpdate = useSelector(state => state.productUpdate), { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate
+          productUpdate = useSelector(state => state.productUpdate), { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate,
+          userLogin = useSelector(state => state.userLogin), { userInfo } = userLogin
+
 
     useEffect(() => {
         if (successUpdate) {
@@ -40,6 +44,30 @@ const ProductEditScreen = () => {
             }
         }
     }, [dispatch, navigate, product, id, successUpdate])
+
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append('image', file)
+        setUploading(true)
+    
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${userInfo.token}`
+                }
+            }
+
+            const { data } = await axios.post('/api/upload', formData, config)
+
+            setImage(data)
+            setUploading(false)
+        } catch (error) {
+            console.error(error)
+            setUploading(false)
+        }
+    }
 
     const submitHandler = e => {
         e.preventDefault() // prevent page from reloading
@@ -66,6 +94,8 @@ const ProductEditScreen = () => {
                     <Form.Group controlId='image'>
                         <Form.Label>Image</Form.Label>
                         <Form.Control type='text' placeholder='Enter image url' value={image} onChange={e => setImage(e.target.value)}></Form.Control>
+                        <Form.Control type='file' label='Choose file' onChange={uploadFileHandler} custom></Form.Control>
+                        {uploading && <Loader />}
                     </Form.Group>
                     <Form.Group controlId='brand'>
                         <Form.Label>Brand</Form.Label>
