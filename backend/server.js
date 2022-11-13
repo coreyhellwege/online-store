@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
 import path from 'path'
+import morgan from 'morgan'
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
@@ -16,6 +17,12 @@ dotenv.config()
 connectDB()
 
 const app = express()
+
+const ENV = process.env.NODE_ENV
+
+if (ENV === 'development') {
+    app.use(morgan('dev')) // use Morgan just in the dev environment
+}
 
 app.use(express.json()) // Allows us to accept json data in request body
 
@@ -41,6 +48,5 @@ app.use(notFound) // Handle missing route errors.
 app.use(errorHandler) // Override the default error handler.
 
 const PORT = process.env.PORT || 8000
-const ENV = process.env.NODE_ENV
 
 app.listen(PORT, console.log(`Server running in ${ENV} mode on port ${PORT}`.yellow.bold))
