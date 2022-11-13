@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
-import { useParams, Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getOrderDetails, payOrder } from '../actions/orderActions'
-import { ORDER_PAY_RESET } from '../constants/orderConstants'
+import { getOrderDetails, payOrder, deliverOrder } from '../actions/orderActions'
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constants/orderConstants'
 
 const OrderScreen = () => {
-    const { id } = useParams(), dispatch = useDispatch()
+    const { id } = useParams(), dispatch = useDispatch(), navigate = useNavigate()
     const [ sdkReady, setSdkReady ] = useState(false) // Add state for when the PayPal SDK is ready
-    const orderDetails = useSelector(state => state.orderDetails) // Get orderDetails from the state
-    const { order, loading, error } = orderDetails // and then extract data from orderDetails
-    const orderPay = useSelector(state => state.orderPay)
-    const { loading:loadingPay, success:successPay } = orderPay // rename state variables to avoid duplicates
+    const orderDetails = useSelector(state => state.orderDetails), { order, loading, error } = orderDetails, // Get orderDetails from the state and then extract data from orderDetails
+          orderPay     = useSelector(state => state.orderPay), { loading: loadingPay, success: successPay } = orderPay, // rename state variables to avoid duplicates
+          orderDeliver = useSelector(state => state.orderDeliver), { loading: loadingDeliver, success: successDeliver } = orderDeliver,
+          userLogin    = useSelector(state => state.userLogin), { userInfo } = userLogin
 
     useEffect(() => {
+        if (!userInfo) {
+            navigate('/login')
+        } 
+
         // Build PayPal SDK config script
         const addPayPalScript = async () => {
             const { data: clientId } = await axios.get('/api/config/paypal')
@@ -31,18 +35,23 @@ const OrderScreen = () => {
         }
 
         // check for the order and make sure the order ID matches the ID in the URL. If it doesn't, dispatch getOrderDetails() to fetch the order from the URL.
-        if (!order || order._id !== id || successPay) {
+        if (!order || order._id !== id || successPay || successDeliver) {
             dispatch({ type: ORDER_PAY_RESET }) // dispatch the order_pay_reset action here otherwise there will be an infinite loop after an order is paid.
+            dispatch({ type: ORDER_DELIVER_RESET })
             dispatch(getOrderDetails(id))
         } else if (!order.isPaid) {
             !window.paypal ? addPayPalScript() : setSdkReady(true) // add the script if it isn't already there
         }
-    }, [order, id, successPay, dispatch]) 
+    }, [order, id, successPay, successDeliver, userInfo, dispatch]) 
 
     // Note: PayPal returns a payment result
     const successPaymentHandler = (paymentResult) => {
         console.log(paymentResult)
         dispatch(payOrder(id, paymentResult)) // dispatch the payOrder action
+    }
+
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order))
     }
 
     return loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : <>
@@ -122,6 +131,12 @@ const OrderScreen = () => {
                                 {!sdkReady ? <Loader /> : (
                                     <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />
                                 )}
+                            </ListGroup.Item>
+                        )}
+                        {loadingDeliver && <Loader />}
+                        {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                            <ListGroup.Item>
+                                <Button type='button' className='btn btn-block' onClick={deliverHandler}>Mark as delivered</Button>
                             </ListGroup.Item>
                         )}
                     </ListGroup>
