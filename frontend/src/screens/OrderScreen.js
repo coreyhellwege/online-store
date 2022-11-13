@@ -42,7 +42,7 @@ const OrderScreen = () => {
         } else if (!order.isPaid) {
             !window.paypal ? addPayPalScript() : setSdkReady(true) // add the script if it isn't already there
         }
-    }, [order, id, successPay, successDeliver, userInfo, dispatch]) 
+    }, [order, id, successPay, successDeliver, userInfo, dispatch, navigate]) 
 
     // Note: PayPal returns a payment result
     const successPaymentHandler = (paymentResult) => {
