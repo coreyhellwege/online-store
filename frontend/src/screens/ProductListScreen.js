@@ -12,10 +12,10 @@ import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 const ProductListScreen = () => {
     const dispatch = useDispatch(), navigate = useNavigate(), params = useParams()
     const pageNumber = params.pageNumber || 1
-    const productList = useSelector(state => state.productList), { loading, error, products, pages, page } = productList // Get list of users from the global state
-    const productCreate = useSelector(state => state.productCreate), { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = productCreate
-    const productDelete = useSelector(state => state.productDelete), { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
-    const userLogin = useSelector(state => state.userLogin), { userInfo } = userLogin
+    const productList   = useSelector(state => state.productList), { loading, error, products, pages, page } = productList, // Get list of users from the global state
+          productCreate = useSelector(state => state.productCreate), { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = productCreate,
+          productDelete = useSelector(state => state.productDelete), { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete,
+          userLogin     = useSelector(state => state.userLogin), { userInfo } = userLogin
 
     useEffect(() => {
         dispatch({ type: PRODUCT_CREATE_RESET })
