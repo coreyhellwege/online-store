@@ -7,7 +7,25 @@ import Product from '../models/productModel.js'
  * @access Public
  */
 const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({})
+    // If a 'keyword' query parameter was supplied, attempt to match it to a product or brand name using mongo's logical or operator
+    const keyword = req.query.keyword ? {
+        $or: [
+            {
+                name: {
+                    $regex: req.query.keyword, // use mongo's regex pattern matching strings in queries
+                    $options: 'i' // case insensitive
+                }
+            }, 
+            {
+                brand: {
+                    $regex: req.query.keyword,
+                    $options: 'i'
+                }
+            }
+        ]
+    } : {}
+
+    const products = await Product.find({ ...keyword })
     res.json(products) // convert to JSON
 })
 
