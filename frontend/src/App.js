@@ -20,13 +20,13 @@ import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 
 const App = () => {
-    // Must return one element
     return <Router>
         <Header />
             <main className='py-3'>
                 <Container>
                     <Routes>
                         <Route exact path='/' element={<HomeScreen />} />
+                        <Route path='/search/:keyword' element={<HomeScreen />} />
                         <Route path='/login' element={<LoginScreen />} />
                         <Route path='/register' element={<RegisterScreen />} />
                         <Route path='/profile' element={<ProfileScreen />} />
