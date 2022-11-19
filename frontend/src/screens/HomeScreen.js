@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
@@ -7,16 +8,12 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 
 const HomeScreen = () => {
-    const dispatch = useDispatch()
+    const params = useParams(), dispatch = useDispatch()
     const productList = useSelector(state => state.productList), { loading, error, products } = productList
 
-    /*
-     * useEffect runs when the component loads. 
-     * Second arg is an array of dependencies which trigger useEffect when they change.
-     */
     useEffect(() => {
-        dispatch(listProducts())
-    }, [dispatch])
+        dispatch(listProducts(params.keyword))
+    }, [dispatch, params.keyword])
 
     return <>
         <h1>Latest Products</h1>
