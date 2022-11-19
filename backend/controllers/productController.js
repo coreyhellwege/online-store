@@ -7,6 +7,9 @@ import Product from '../models/productModel.js'
  * @access Public
  */
 const getProducts = asyncHandler(async (req, res) => {
+    const pageSize = 10,
+          page = Number(req.query.pageNumber) || 1
+
     // If a 'keyword' query parameter was supplied, attempt to match it to a product or brand name using mongo's logical or operator
     const keyword = req.query.keyword ? {
         $or: [
@@ -25,8 +28,10 @@ const getProducts = asyncHandler(async (req, res) => {
         ]
     } : {}
 
-    const products = await Product.find({ ...keyword })
-    res.json(products) // convert to JSON
+    const count = await Product.count({ ...keyword }),
+          products = await Product.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1)) // Fetch only the products for the provided page
+
+    res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 /*
