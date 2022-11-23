@@ -24,13 +24,29 @@ const PaymentScreen = ({ history }) => { // destructure props and get history
         <h1>Payment Method</h1>
         <Form onSubmit={submitHandler}>
             <Form.Group>
-                <Form.Label as='legend'>Select Method</Form.Label>
+                <Form.Label as='legend' className='mb-4'>Select Method</Form.Label>
                 <Col>
-                    <Form.Check checked type='radio' label='PayPal or Credit Card' id='PayPal' name='paymentMethod' value='PayPal' onChange={e => setPaymentMethod(e.target.value)}></Form.Check>
-                    <Form.Check type='radio' label='Stripe' id='Stripe' name='paymentMethod' value='Stripe' onChange={e => setPaymentMethod(e.target.value)}></Form.Check>
+                    <Form.Check 
+                        checked 
+                        type='radio' 
+                        label='PayPal or Credit Card' 
+                        id='PayPal' 
+                        name='paymentMethod' 
+                        value='PayPal' 
+                        onChange={e => setPaymentMethod(e.target.value)}
+                    />
+                    <Form.Check 
+                        type='radio' 
+                        label='Stripe' 
+                        id='Stripe' 
+                        className='mt-2'
+                        name='paymentMethod' 
+                        value='Stripe' 
+                        onChange={e => setPaymentMethod(e.target.value)} 
+                    />
                 </Col>
             </Form.Group>
-            <Button type='submit' variant='primary'>Continue</Button>
+            <Button type='submit' variant='primary' className='mt-4'>Continue</Button>
         </Form>
     </FormContainer>
 }

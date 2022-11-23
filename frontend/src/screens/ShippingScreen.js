@@ -30,19 +30,19 @@ const ShippingScreen = ({ history }) => { // destructure props and get history
                 <Form.Label>Address</Form.Label>
                 <Form.Control type='text' placeholder='Enter address' value={address} onChange={e => setAddress(e.target.value)} required></Form.Control>
             </Form.Group> 
-            <Form.Group controlId='city'>
+            <Form.Group controlId='city' className='mt-2'>
                 <Form.Label>City</Form.Label>
                 <Form.Control type='text' placeholder='Enter city' value={city} onChange={e => setCity(e.target.value)} required></Form.Control>
             </Form.Group> 
-            <Form.Group controlId='postCode'>
+            <Form.Group controlId='postCode' className='mt-2'>
                 <Form.Label>Post Code</Form.Label>
                 <Form.Control type='text' placeholder='Enter postcode' value={postCode} onChange={e => setPostCode(e.target.value)} required></Form.Control>
             </Form.Group> 
-            <Form.Group controlId='country'>
+            <Form.Group controlId='country' className='mt-2'>
                 <Form.Label>Country</Form.Label>
                 <Form.Control type='text' placeholder='Enter country' value={country} onChange={e => setCountry(e.target.value)} required></Form.Control>
             </Form.Group>
-            <Button type='submit' variant='primary'>Continue</Button>
+            <Button type='submit' variant='primary' className='mt-4'>Continue</Button>
         </Form>
     </FormContainer>
 }

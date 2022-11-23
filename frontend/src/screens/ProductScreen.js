@@ -55,7 +55,7 @@ const ProductScreen = () => {
                             <ListGroupItem><h3>{product.name}</h3></ListGroupItem>
                             <ListGroupItem><Rating value={product.rating} text={`${product.numReviews} reviews`} /></ListGroupItem>
                             <ListGroupItem>Price: ${product.price}</ListGroupItem>
-                            <ListGroupItem>Description: {product.description}</ListGroupItem>
+                            <ListGroupItem className='mt-4'>Description: {product.description}</ListGroupItem>
                         </ListGroup>
                     </Col>
                     <Col md={3}>
@@ -110,7 +110,7 @@ const ProductScreen = () => {
                                 </ListGroupItem>
                             ))}
                             <ListGroupItem>
-                                <h2>Write a customer review</h2>
+                                <h4>Write a review</h4>
                                 {errorProductReview && ( <Message variant='danger'>{errorProductReview}</Message> )}
                                 {userInfo ? (
                                     <Form onSubmit={submitHandler}>

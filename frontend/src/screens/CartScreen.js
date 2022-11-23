@@ -26,7 +26,7 @@ const CartScreen = () => {
         <Col md={8}>
             <h1>Shopping Cart</h1>
             {
-                cartItems.length === 0 ? <Message>Cart is empty <Link to='/'>Go back</Link></Message> :
+                cartItems.length === 0 ? <Message>Cart is empty <Link to='/'>View products</Link></Message> :
                 <ListGroup variant='flush'>
                     {cartItems.map(item => (
                         <ListGroupItem key={item.product}>
@@ -54,7 +54,7 @@ const CartScreen = () => {
                         ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
                     </ListGroupItem>
                     <ListGroupItem>
-                        <Button type='button' className='btn-block' disabled={cartItems.length === 0} onClick={checkoutHandler}>Proceed to checkout</Button>
+                        <Button type='button' className='btn-block w-100' disabled={cartItems.length === 0} onClick={checkoutHandler}>Proceed to checkout</Button>
                     </ListGroupItem>
                 </ListGroup>
             </Card>

@@ -20,7 +20,16 @@ h2 {
   margin: 0.1rem;
 }
 
+.info-bar {
+  background-color: var(--bs-gray-300);
+}
+
 /* carousel */
+
+.carousel {
+  background-color: var(--bs-gray-300);
+}
+
 .carousel-item-next,
 .carousel-item-prev,
 .carousel-item.active {
@@ -33,7 +42,7 @@ h2 {
 }
 
 .carousel-caption h2 {
-  color: #fff;
+  color: var(--bs-gray-800);
 }
 
 .carousel img {
@@ -64,7 +73,7 @@ h2 {
   margin-left: 3px;
   text-indent: -999px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: var(--bs-gray-600);
   background-clip: padding-box;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;

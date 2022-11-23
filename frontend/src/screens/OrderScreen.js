@@ -55,7 +55,11 @@ const OrderScreen = () => {
     }
 
     return loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : <>
-        <h1>Order {order._id}</h1>
+        <div className='mt-2'>
+            <h1>Order</h1>
+            <small>Reference: {order._id}</small>
+            <hr/>
+        </div>
         <Row>
             <Col md={8}>
                 <ListGroup variant='flush'>
@@ -99,7 +103,7 @@ const OrderScreen = () => {
                 <Card>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
-                            <h2>Order Summary</h2>
+                            <h2>Summary</h2>
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <Row>
@@ -126,7 +130,7 @@ const OrderScreen = () => {
                             </Row>
                         </ListGroup.Item>
                         {!order.isPaid && (
-                            <ListGroup.Item>
+                            <ListGroup.Item className='mt-3'>
                                 {loadingPay && <Loader />}
                                 {!sdkReady ? <Loader /> : (
                                     <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />
