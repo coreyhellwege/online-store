@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
 import { logout } from '../actions/userActions'
-import SearchBox from './SearchBox'
+import InfoBar from './InfoBar'
 
 const Header = () => {
     const dispatch = useDispatch(), navigate = useNavigate()
@@ -16,12 +16,12 @@ const Header = () => {
     }
 
     return <header>
+        <InfoBar message={'Free shipping on orders over $50'} />
         <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
             <Container>
-                <LinkContainer to='/'><Navbar.Brand>Online Store</Navbar.Brand></LinkContainer>
+                <LinkContainer to='/'><Navbar.Brand><i className='fas fa-bone'></i> Pawsome Snacks</Navbar.Brand></LinkContainer>
                 <Navbar.Toggle aria-controls='basic-navbar-nav' />
                 <Navbar.Collapse id='basic-navbar-nav'>
-                    <SearchBox />
                     <Nav className='ms-auto'>
                         <LinkContainer to='/cart'>
                             <Nav.Link><i className='fas fa-shopping-cart'></i> Cart</Nav.Link>

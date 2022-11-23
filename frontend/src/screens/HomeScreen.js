@@ -9,6 +9,7 @@ import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
+import SearchBox from '../components/SearchBox'
 
 const HomeScreen = () => {
     const params = useParams(), dispatch = useDispatch()
@@ -22,8 +23,9 @@ const HomeScreen = () => {
 
     return <>
         <Meta />
+        <SearchBox />
         {!keyword ? <ProductCarousel /> : <Link to='/' className='btn btn-light'>Go Back</Link>}
-        <h1>Latest Products</h1>
+        <h2 className='mt-4 d-flex justify-content-center'>Latest Products</h2>
         {
             loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : 
             <>
