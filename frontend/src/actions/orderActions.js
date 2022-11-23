@@ -7,6 +7,8 @@ import {
     ORDER_LIST_REQUEST, ORDER_LIST_SUCCESS, ORDER_LIST_FAIL, 
     ORDER_DELIVER_REQUEST, ORDER_DELIVER_SUCCESS, ORDER_DELIVER_FAIL
 } from '../constants/orderConstants'
+import { clearCart } from './cartActions'
+import { CART_RESET } from '../constants/cartConstants'
 
 export const createOrder = (order) => async (dispatch, getState) => {
     try {
@@ -59,6 +61,8 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
 
         const { data } = await axios.put(`/api/orders/${id}/pay`, paymentResult, config)
         dispatch({ type: ORDER_PAY_SUCCESS, payload: data })
+        dispatch({ type: CART_RESET })
+        dispatch(clearCart())
     } catch (error) {
         dispatch({
             type: ORDER_PAY_FAIL,
