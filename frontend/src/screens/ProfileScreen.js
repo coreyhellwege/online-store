@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 const ProfileScreen = () => {
     const dispatch = useDispatch(), navigate = useNavigate()
@@ -26,7 +27,8 @@ const ProfileScreen = () => {
         if (!userInfo) {
             navigate('/login') // if user is not logged-in, redirect them to log in
         } else {
-            if (!user.name) {
+            if (!user || !user.name || success) {
+                dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 dispatch(getUserDetails('profile')) // if there's no user name, pass 'profile' to getUserDetails (instead of an id) to get the logged-in user
                 dispatch(listMyOrders())
             } else {
@@ -34,7 +36,7 @@ const ProfileScreen = () => {
                 setEmail(user.email)
             }
         }
-    }, [userInfo, navigate, dispatch, user])
+    }, [userInfo, navigate, dispatch, user, success])
 
     const submitHandler = e => {
         e.preventDefault() // prevent page from reloading
