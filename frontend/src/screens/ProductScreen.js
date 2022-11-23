@@ -97,7 +97,7 @@ const ProductScreen = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={6}>
+                    <Col md={6} className='mt-5'>
                         <h2>Reviews</h2>
                         {product.reviews.length === 0 && <Message>No reviews</Message>}
                         <ListGroup variant='flush'>
@@ -114,7 +114,7 @@ const ProductScreen = () => {
                                 {errorProductReview && ( <Message variant='danger'>{errorProductReview}</Message> )}
                                 {userInfo ? (
                                     <Form onSubmit={submitHandler}>
-                                        <FormGroup controlId='rating'>
+                                        <FormGroup controlId='rating' className='mt-2'>
                                             <FormLabel>Rating</FormLabel>
                                             <FormControl as='select' value={rating} onChange={e => setRating(e.target.value)}>
                                                 <option value=''>Select...</option>
@@ -125,11 +125,11 @@ const ProductScreen = () => {
                                                 <option value='5'>5 - Excellent</option>
                                             </FormControl>
                                         </FormGroup>
-                                        <FormGroup controlId='comment'>
+                                        <FormGroup controlId='comment' className='mt-2'>
                                             <FormLabel>Comment</FormLabel>
                                             <FormControl as='textarea' row='3' value={comment} onChange={e => setComment(e.target.value)}></FormControl>
                                         </FormGroup>
-                                        <Button type='submit' variant='primary'>Submit</Button>
+                                        <Button type='submit' variant='primary' className='mt-4'>Submit</Button>
                                     </Form>
                                 ) : <Message>Please <Link to='/login'>Sign in</Link> to write a review</Message>}
                             </ListGroupItem>
