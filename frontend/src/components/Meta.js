@@ -12,9 +12,9 @@ const Meta = ({ title, description, keywords }) => {
 }
 
 Meta.defaultProps = {
-    title: 'Welcome to Online Store',
-    description: 'An awesome online store',
-    keywords: 'Buy furniture, buy dining tables, buy couches'
+    title: 'Welcome to Pawsome Snacks',
+    description: 'We stock all natural, healthy Australian made pet snacks',
+    keywords: 'Buy pet snacks, buy dog treats, buy pet food'
 }
 
 export default Meta
