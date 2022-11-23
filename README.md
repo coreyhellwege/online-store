@@ -14,10 +14,10 @@
     <img src="./images/online-store-icon.png" alt="Logo" width="90" height="90">
   </a>
 
-<h1 align="center">Online Store</h1>
+  <h1 align="center">Pawsome Snacks</h1>
 
   <p align="center">
-    An E-Commerce online store built with React JS, Redux JS, Node JS, Express JS, Mongo DB.
+    An E-Commerce online store built with React, Redux, Node, Express, Mongo DB, React Bootstrap, PayPal SDK and more!
     <br />
     <br />
     <a href="https://github.com/coreyhellwege/online-store/issues">Report Bug</a>
@@ -56,8 +56,15 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+#### Public Screens
+
 ![Screenshot 1][product-screenshot-1]
 ![Screenshot 2][product-screenshot-2]
+
+#### Admin Screens
+
+![Screenshot 3][product-screenshot-3]
+![Screenshot 4][product-screenshot-4]
 
 <p align="right"><a href="#top">back to top</a></p>
 
@@ -183,3 +190,5 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [license-url]: /LICENSE.txt
 [product-screenshot-1]: ./images/screenshot-1.png
 [product-screenshot-2]: ./images/screenshot-2.png
+[product-screenshot-3]: ./images/screenshot-3.png
+[product-screenshot-4]: ./images/screenshot-4.png
