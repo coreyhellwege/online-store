@@ -18,7 +18,7 @@ const PlaceOrderScreen = () => {
           taxPrice      = addDecimals(Number(0.10 * itemsPrice).toFixed(2)),
           totalPrice    = (Number(itemsPrice) + Number(shippingPrice) + Number(taxPrice)).toFixed(2)
 
-    const orderCreate = useSelector(state => state.orderCreate) // Get orderCreate from the state
+    const orderCreate = useSelector(state => state.orderCreate) // Get orderCreate state from the Redux store
     const { order, success, error } = orderCreate // and then extract data from orderCreate
 
     useEffect(() => {

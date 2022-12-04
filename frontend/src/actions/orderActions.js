@@ -10,6 +10,7 @@ import {
 import { clearCart } from './cartActions'
 import { CART_RESET } from '../constants/cartConstants'
 
+// Redux action creator functions
 export const createOrder = (order) => async (dispatch, getState) => {
     try {
         dispatch({ type: ORDER_CREATE_REQUEST })
@@ -23,7 +24,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.post('/api/orders', order, config)
-        dispatch({ type: ORDER_CREATE_SUCCESS, payload: data })
+        dispatch({ type: ORDER_CREATE_SUCCESS, payload: data }) // dispatch the ORDER_CREATE_SUCCESS action to the reducer with the returned order data as the payload
     } catch (error) {
         dispatch({
             type: ORDER_CREATE_FAIL,
