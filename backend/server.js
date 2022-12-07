@@ -5,6 +5,8 @@ import path from 'path'
 import morgan from 'morgan'
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
+import schema from './schema/schema'
+import { graphqlHTTP } from 'express-graphql'
 
 // Import routes
 import productRoutes from './routes/productRoutes.js'
@@ -38,6 +40,14 @@ app.use('/api/orders', orderRoutes)
 app.use('/api/upload', uploadRoutes)
 
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
+
+app.use(
+    '/graphql',
+    graphqlHTTP({
+      schema,
+      graphiql: process.env.NODE_ENV === 'development',
+    })
+)
 
 const folder = path.resolve()
 
